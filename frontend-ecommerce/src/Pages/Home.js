@@ -38,7 +38,7 @@ const Home = () => {
     <div>
       {/* Navigation Bar */}
       <div className="nav-bar">
-        <p>SHOPPER</p>
+        <p>LLERAMART</p>
         <ul className="nav-menu">
           <li>About</li>
           <li>Online Fundraising</li>
@@ -51,7 +51,7 @@ const Home = () => {
               <SearchProduct onSearchResults={handleSearchResults} />
             </li>
 
-            {/* User Icon with Dropdown */}
+            
             <li className="user-menu">
               <LuUserRound
                 size={30}
@@ -71,6 +71,8 @@ const Home = () => {
           </ul>
         </div>
       </div>
+
+      
 
       {/* Product List */}
       <div className="product-list">

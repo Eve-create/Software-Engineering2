@@ -9,13 +9,13 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
-app.use("/uploads", express.static("uploads")) // serve uploaded images
+app.use("/uploads", express.static("uploads")) 
 
-// ✅ Connect to MySQL
+
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "password", // change if needed
+    password: "password", 
     database: "db",
 })
 
@@ -27,10 +27,10 @@ db.connect(err => {
     console.log("✅ Connected to MySQL database!");
 });
 
-// ================== AUTH ROUTES ==================
+
 const salt = 5;
 
-// Register
+
 app.post("/register", (req, res) => {
     const sql = "INSERT INTO user (`username`, `email`, `password`) VALUES (?)";
     bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {
@@ -66,7 +66,7 @@ app.post("/login", (req, res) => {
     })
 })
 
-// ================== MULTER CONFIG ==================
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "uploads/") // store files in /uploads folder
@@ -77,7 +77,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage: storage })
 
-// ================== PRODUCT ROUTES ==================
+
 
 // Add product (with image upload)
 app.post("/products", upload.single("image"), (req, res) => {
@@ -113,7 +113,6 @@ app.get("/search", (req, res) => {
     })
 })
 
-// ================== SERVER ==================
 app.listen(8081, () => {
     console.log("🚀 Server listening on port 8081")
 })
