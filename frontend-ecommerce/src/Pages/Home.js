@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "../Styles/Home.css";
-import SearchProduct from "../Components/SearchProduct";
-import { LuUserRound, LuShoppingCart } from "react-icons/lu";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import CulturalImages from "../Components/CulturalImages";
+import ProductList from "../Components/ProductList";
+import Navbar from "../Components/Navbar";
 
 const Home = () => {
-  const [showDropdown, setShowDropdown] = useState(false);
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-  const navigate = useNavigate();
 
+  // Load products initially
   useEffect(() => {
-    // Load all products at first
     axios.get("http://localhost:8081/products")
       .then(res => {
         setProducts(res.data);
@@ -21,75 +18,19 @@ const Home = () => {
       .catch(err => console.error("Error loading products:", err));
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    navigate("/"); 
-  };
-
   const handleSearchResults = (results) => {
     if (results.length > 0) {
       setFilteredProducts(results);
     } else {
-      setFilteredProducts([]); // empty if nothing found
+      setFilteredProducts([]);
     }
   };
 
   return (
     <div>
-      {/* Navigation Bar */}
-      <div className="nav-bar">
-        <p>LLERAMART</p>
-        <ul className="nav-menu">
-          <li>About</li>
-          <li>Online Fundraising</li>
-          <li>Shop</li>
-        </ul>
-
-        <div className="searchProfileCart">
-          <ul>
-            <li>
-              <SearchProduct onSearchResults={handleSearchResults} />
-            </li>
-
-            
-            <li className="user-menu">
-              <LuUserRound
-                size={30}
-                className="user-icon"
-                onClick={() => setShowDropdown(!showDropdown)}
-              />
-              {showDropdown && (
-                <ul className="dropdown-menu">
-                  <li onClick={handleLogout}>Logout</li>
-                </ul>
-              )}
-            </li>
-
-            <li>
-              <LuShoppingCart size={30} />
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      
-
-      {/* Product List */}
-      <div className="product-list">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((p) => (
-            <div key={p.id} className="product-card">
-              <img src={`http://localhost:8081/uploads/${p.image}`} alt={p.name} />
-              <h3>{p.name}</h3>
-              <p>{p.description}</p>
-              <p>₱{p.price}</p>
-            </div>
-            
-          ))
-        ) : (
-          <p>No products found.</p>
-        )}
-      </div>
+      <Navbar onSearchResults={handleSearchResults} />
+      <CulturalImages />
+      <ProductList products={filteredProducts} />
     </div>
   );
 };
