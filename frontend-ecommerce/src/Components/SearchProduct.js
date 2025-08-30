@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import '../Styles/SearchProduct.css';
 import { LuSearch } from "react-icons/lu";
+import { IoClose } from "react-icons/io5";
 import axios from "axios";
 
-const SearchProduct = ({ onSearchResults }) => {
+const SearchProduct = ({ onSearchResults, onClose, showClose }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const performSearch = async () => {
     if (searchQuery.trim() !== "") {
       try {
         const res = await axios.get(`http://localhost:8081/search?q=${searchQuery}`);
-        onSearchResults(res.data);  // Send results back to Home
+        onSearchResults(res.data);
       } catch (err) {
         console.error("Search error:", err);
         alert("Something went wrong while searching.");
@@ -21,7 +22,6 @@ const SearchProduct = ({ onSearchResults }) => {
   };
 
   const handleInputChange = (e) => setSearchQuery(e.target.value);
-
   const handleKeyDown = (e) => {
     if (e.key === "Enter") performSearch();
   };
@@ -36,11 +36,14 @@ const SearchProduct = ({ onSearchResults }) => {
         onKeyDown={handleKeyDown}
         className="search-input"
       />
-      <LuSearch
-        size={30}
-        className="search-icon"
-        onClick={performSearch}
-      />
+      <LuSearch size={28} className="search-icon" onClick={performSearch} />
+      {showClose && (
+        <IoClose
+          size={30}
+          className="close-icon"
+          onClick={onClose}
+        />
+      )}
     </div>
   );
 };

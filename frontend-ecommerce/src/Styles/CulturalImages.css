@@ -1,0 +1,58 @@
+.video-container {
+  position: relative; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-container video {
+  margin-top: 10px;
+  width: 90%;
+  height: 50%;
+}
+
+.overlay-btn {
+  position: absolute;
+  bottom: 0.5%;              
+  right: 6%;               
+  background: none;
+  border: none;
+  color: yellow;
+  font-size: clamp(16px, 2vw, 20px);  
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1.5s ease-out forwards, pulse 2.5s infinite ease-in-out 2s;
+  white-space: nowrap;     
+}
+
+.overlay-btn:hover {
+  color: white;
+  transform: scale(1.05);
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-3px) scale(1.05);
+  }
+}
+
+@media (max-width: 600px) {
+  .overlay-btn {
+    right: 5%; 
+    bottom: 8%;
+    font-size: clamp(14px, 4vw, 22px);
+  }
+}

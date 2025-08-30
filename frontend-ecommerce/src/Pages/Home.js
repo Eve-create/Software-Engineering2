@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import CulturalImages from "../Components/CulturalImages";
+import CulturalContent from "../Components/CulturalContent";
 import ProductList from "../Components/ProductList";
 import Navbar from "../Components/Navbar";
 
@@ -29,7 +29,7 @@ const Home = () => {
   return (
     <div>
       <Navbar onSearchResults={handleSearchResults} />
-      <CulturalImages />
+      <CulturalContent/>
       <ProductList products={filteredProducts} />
     </div>
   );
