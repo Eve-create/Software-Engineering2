@@ -21,7 +21,7 @@ const Navbar = ({ onSearchResults }) => {
           <p>LLERAMART</p>
           <ul className="nav-menu">
             <li>About</li>
-            <li>Online Fundraising</li>
+            <li>Fundraising</li>
             <li>Shop</li>
           </ul>
 

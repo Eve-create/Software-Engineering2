@@ -3,6 +3,7 @@ import axios from "axios";
 import CulturalContent from "../Components/CulturalContent";
 import ProductList from "../Components/ProductList";
 import Navbar from "../Components/Navbar";
+import Donation from "../Components/Donation";
 
 const Home = () => {
   const [products, setProducts] = useState([]);
@@ -31,6 +32,7 @@ const Home = () => {
       <Navbar onSearchResults={handleSearchResults} />
       <CulturalContent/>
       <ProductList products={filteredProducts} />
+      <Donation/>
     </div>
   );
 };
