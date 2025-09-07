@@ -28,6 +28,7 @@ db.connect((err) => {
 
 const salt = 5;
 
+// Register
 app.post("/register", (req, res) => {
   const sql = "INSERT INTO user (`username`, `email`, `password`) VALUES (?)";
   bcrypt.hash(req.body.password.toString(), salt, (err, hash) => {

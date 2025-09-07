@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import SearchProduct from "./SearchProduct";
 import "../Styles/Navbar.css";
 
-const Navbar = ({ onSearchResults }) => {
+const Navbar = ({ onSearchResults, onAboutClick, onFundraisingClick, onShopClick, onSearchScroll }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const navigate = useNavigate();
@@ -14,15 +14,19 @@ const Navbar = ({ onSearchResults }) => {
     navigate("/");
   };
 
+  const goHome = () => {
+    navigate("/home");
+  };
+
   return (
     <div className="nav-bar">
       {!showSearch ? (
         <>
-          <p>LLERAMART</p>
+          <p className="go-home" onClick={goHome}>LLERAMART</p>
           <ul className="nav-menu">
-            <li>About</li>
-            <li>Fundraising</li>
-            <li>Shop</li>
+            <li onClick={onAboutClick}>About</li>
+            <li onClick={onShopClick}>Shop</li> 
+            <li onClick={onFundraisingClick}>Fundraising</li>
           </ul>
 
           <div className="searchProfileCart">
@@ -57,6 +61,7 @@ const Navbar = ({ onSearchResults }) => {
           onSearchResults={onSearchResults}
           onClose={() => setShowSearch(false)}
           showClose={true}
+          onSearchScroll={onSearchScroll}   
         />
       )}
     </div>

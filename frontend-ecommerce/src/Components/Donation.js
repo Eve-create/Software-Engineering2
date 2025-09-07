@@ -49,7 +49,7 @@ function Donation() {
             onChange={handleChange}
             required
           />
-          <button type="submit">Donate</button>
+          <button type="submit">Submit</button>
         </form>
       </div>
       <div className="donation-history-btn">

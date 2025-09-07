@@ -4,7 +4,7 @@ import { LuSearch } from "react-icons/lu";
 import { IoClose } from "react-icons/io5";
 import axios from "axios";
 
-const SearchProduct = ({ onSearchResults, onClose, showClose }) => {
+const SearchProduct = ({ onSearchResults, onClose, showClose, onSearchScroll }) => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const performSearch = async () => {
@@ -12,6 +12,11 @@ const SearchProduct = ({ onSearchResults, onClose, showClose }) => {
       try {
         const res = await axios.get(`http://localhost:8081/search?q=${searchQuery}`);
         onSearchResults(res.data);
+
+        //scroll to products after search
+        if (onSearchScroll) {
+          onSearchScroll();
+        }
       } catch (err) {
         console.error("Search error:", err);
         alert("Something went wrong while searching.");
@@ -24,6 +29,17 @@ const SearchProduct = ({ onSearchResults, onClose, showClose }) => {
   const handleInputChange = (e) => setSearchQuery(e.target.value);
   const handleKeyDown = (e) => {
     if (e.key === "Enter") performSearch();
+  };
+  
+  const handleClose = async () => {
+    try {
+      const res = await axios.get("http://localhost:8081/products");
+      onSearchResults(res.data);  
+    } catch (err) {
+      console.error("Error resetting products:", err);
+    }
+    setSearchQuery(""); 
+    onClose();
   };
 
   return (
@@ -41,7 +57,7 @@ const SearchProduct = ({ onSearchResults, onClose, showClose }) => {
         <IoClose
           size={30}
           className="close-icon"
-          onClick={onClose}
+          onClick={handleClose}   
         />
       )}
     </div>

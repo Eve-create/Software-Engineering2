@@ -5,6 +5,7 @@ import CulturalVideos from "./Pages/CulturalVideos";
 import CulturalImages from "./Pages/CulturalImages";
 import DonationPayment from "./Pages/DonationPayment";
 import DonationHistory from "./Pages/DonationHistory";
+import Products from "./Pages/Products";
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Route path="/cultural-images" element={<CulturalImages />} />
         <Route path="/donation-payment" element={<DonationPayment />} />
         <Route path="/donation-history" element={<DonationHistory />} />
+        <Route path="/products" element={<Products />} />
+
       </Routes>
     </BrowserRouter>
   );
